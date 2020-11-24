@@ -190,7 +190,7 @@ function displayRecipe(response){
 												<th scope="row">${item.title}</th>
 												<td>${item.readyInMinutes}</td>
 												<td>${item.servings}</td>
-												<td><a href="${item.sourceUrl}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
+												<td><a href="recipePage.html?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
 									</tbody>
 							 </table>
 			`;
@@ -228,7 +228,10 @@ function displayInfo(response) {
 	document.getElementById("title").innerHTML = response.title;
 	document.getElementById("header").innerHTML = response.title;
 	document.getElementById("summary").innerHTML = response.summary;
-	
+	document.getElementById("calories").innerHTML = response.nutrition.nutrients[0].amount;
+	document.getElementById("fat").innerHTML = response.nutrition.nutrients[1].amount;
+	document.getElementById("protein").innerHTML = response.nutrition.nutrients[8].amount;
+	document.getElementById("instructions").innerHTML = response.instructions;
 	if (response.dairyFree) {
 		document.getElementById("dairy").innerHTML = "Yes";
 	}
