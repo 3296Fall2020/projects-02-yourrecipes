@@ -96,6 +96,7 @@ function idSearch(input) {
 		return response.json();
 	}).then(response => {
 		console.log(response);
+		displayInfo(response);
 	})
 	.catch(err => {
 		console.error(err);
@@ -216,6 +217,18 @@ function displayQuestion(response){
 	document.getElementById("results").innerHTML = output;
 
 }
+
+function displayInfo(response) {
+	document.getElementById("recipe_img").innerHTML = response.image;
+    document.getElementById("servings").innerHTML = response.servings;
+    document.getElementById("ready").innerHTML = response.readyInMinutes;
+    document.getElementById("type").innerHTML = response.dishTypes;
+    document.getElementById("dairy").innerHTML = response.dairyFree;
+    document.getElementById("gluten").innerHTML = response.glutenFree;
+    document.getElementById("vegan").innerHTML = response.vegan;
+    document.getElementById("url").innerHTML = response.sourceUrl;
+}
+
 var form = document.getElementById("searchForm");
 function handleForm(event){event.preventDefault();}
 form.addEventListener('submit', handleForm);

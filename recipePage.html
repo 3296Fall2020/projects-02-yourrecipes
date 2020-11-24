@@ -11,7 +11,7 @@
                 <tr><td>Perfect for:</td><td id="type">.</td></tr>
                 <tr><td>Dairy Free</td><td id="dairy">.</td></tr>
                 <tr><td>Gluten Free:</td><td id="gluten">.</td></tr>
-                <tr><td>Vegan:</td><td id="vegan"></td>.</tr>
+                <tr><td>Vegan:</td><td id="vegan">.</td></tr>
                 <tr><td>Recipe URL:</td><td id="url">.</td></tr>
             </tbody>
         </table>
@@ -19,14 +19,5 @@
     <script src="static/js/search.js"></script>
     <script>
        idSearch(716429);
-       
-       document.getElementById("recipe_img").innerHTML = response.image;
-       document.getElementById("servings").innerHTML = response.servings;
-       document.getElementById("ready").innerHTML = response.readyInMinutes;
-       document.getElementById("type").innerHTML = response.dishTypes;
-       document.getElementById("dairy").innerHTML = response.dairyFree;
-       document.getElementById("gluten").innerHTML = response.glutenFree;
-       document.getElementById("vegan").innerHTML = response.vegan;
-       document.getElementById("url").innerHTML = response.sourceUrl;
     </script>
 </html>
