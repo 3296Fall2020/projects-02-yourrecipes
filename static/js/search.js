@@ -219,14 +219,36 @@ function displayQuestion(response){
 }
 
 function displayInfo(response) {
-	document.getElementById("recipe_img").innerHTML = response.image;
+	document.getElementById("recipe_img").src = response.image;
     document.getElementById("servings").innerHTML = response.servings;
-    document.getElementById("ready").innerHTML = response.readyInMinutes;
-    document.getElementById("type").innerHTML = response.dishTypes;
-    document.getElementById("dairy").innerHTML = response.dairyFree;
-    document.getElementById("gluten").innerHTML = response.glutenFree;
-    document.getElementById("vegan").innerHTML = response.vegan;
-    document.getElementById("url").innerHTML = response.sourceUrl;
+	document.getElementById("ready").innerHTML = response.readyInMinutes;
+	document.getElementById("type").innerHTML = response.dishTypes;
+	document.getElementById("title").innerHTML = response.title;
+	document.getElementById("header").innerHTML = response.title;
+	document.getElementById("summary").innerHTML = response.summary;
+	
+	if (response.dairyFree) {
+		document.getElementById("dairy").innerHTML = "Yes";
+	}
+	else {
+		document.getElementById("dairy").innerHTML = "No";
+	}
+
+	if (response.glutenFree) {
+		document.getElementById("gluten").innerHTML = "Yes";
+	}
+	else {
+		document.getElementById("gluten").innerHTML = "No";
+	}
+
+    if (response.vegan) {
+		document.getElementById("vegan").innerHTML = "Yes";
+	}
+	else {
+		document.getElementById("vegan").innerHTML = "No";
+	}
+
+    document.getElementById("url").href = response.sourceUrl;
 }
 
 var form = document.getElementById("searchForm");
