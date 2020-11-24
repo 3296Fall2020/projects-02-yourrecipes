@@ -83,7 +83,7 @@ function idSearch(input) {
 
 	let requestString = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/";
 
-	requestString = requestString + id + "/information";
+	requestString = requestString + id + "/information?includeNutrition=true";
 
 	fetch(requestString, {
 	"method": "GET",
@@ -136,6 +136,7 @@ function displayIngredient(response){
 											<th scope="col">Ingredients</th>
 											<th scope="col">Missing Ingredients</th>
 											<th scope="col">Likes</th>
+											<th scope="col">Link</th>
 									</thead>
 								 </table>
 								`;
@@ -160,6 +161,7 @@ function displayIngredient(response){
 												<td>${ingredients}</td>
 												<td>${missedIngredients}</td>
 												<td>${item.likes}</td>
+												<td><a href="recipePage.html?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
 									</tbody>
 							 </table>
 			`;
