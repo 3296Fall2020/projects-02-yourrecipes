@@ -54,8 +54,19 @@ const Account = new Schema({
 })
 
 
+// Create saved recipes schema
+const SavedRecipes = new Schema({
+    acc_id: ObjectId,
+    recipes: String
+})
+
+
 // Create account model
 const AccModel = mongoose.model("Account", Account)
+
+
+// Create saved recipes model
+const SRModel = mongoose.model("SavedRecipes", SavedRecipes)
 
 
 // Send out signup page
@@ -165,6 +176,7 @@ app.post('/api/login', async (req, res) => {
 })
 
 
+// send out home page
 app.get('/', (req, res) => {
     return res.redirect('/search')
 })
@@ -176,7 +188,8 @@ app.get('/search', async (req, res) => {
 })
 
 
-app.get('/test', async (req,res)=>{
+// send out userdata
+app.get('/userdata', async (req,res)=>{
     if(!req.session.uid) return res.json(null)
 
     var id = new ObjectId(req.session.uid)
@@ -191,12 +204,99 @@ app.get('/test', async (req,res)=>{
     var username = accData.username
     var email = accData.email
 
-    res.json({username: username , message: email})
+    res.json({username: username})
 })
 
 
-app.get('/render',(req,res)=>{
-    res.sendFile(__dirname +"/test.html")
+// Send out login page
+app.get('/test', (req, res) => {
+    res.sendFile(__dirname + '/test.html')
+})
+
+
+// process save recipe
+app.post('/api/saverecipe', async (req, res) => {
+    var result = {success: false}
+
+    try{
+        if(!req.session.uid) throw "Login or create an account to save recipes"
+
+        var id = new ObjectId(req.session.uid)
+
+        //Search for existing saved recipes doc
+        var foundDoc = await new Promise((resolve, reject) => {
+            SRModel.findOne({acc_id: id}, function(err, doc){
+                if(err) reject(err)
+                resolve(doc)
+            })
+        })
+        if(foundDoc){
+            // Prepare to save
+            foundDoc.recipes += (", " + req.body.recipe)
+
+            //Save to database
+            await new Promise((resolve, reject) => {
+                foundDoc.save(function(e){
+                    if(e) reject(e)
+                    resolve()
+                })
+            })
+        }
+        else{
+            //Prepare data to save
+            var recDoc = new SRModel()
+            recDoc.acc_id = id
+            recDoc.recipes = req.body.recipe
+
+            //Save to database
+            await new Promise((resolve, reject) => {
+                recDoc.save(function(e){
+                    if(e) reject(e)
+                    resolve()
+                })
+            })
+        }
+
+        result.success = true
+    }
+    catch(e){
+        if(typeof e === "string") result.reason = e
+        else {
+            result.reason = "Server error"
+            console.log(e)
+        }
+    }
+
+    res.json(result)
+})
+
+
+// send out recipe data
+app.get('/recipedata', async (req,res)=>{
+    try{
+        if(!req.session.uid) return res.json(null)
+
+        var id = new ObjectId(req.session.uid)
+
+        var recipeData = await new Promise((resolve, reject) => {
+            SRModel.findOne({acc_id: id}, function(err, doc){
+                if(err) reject(err)
+                resolve(doc)
+            })
+        })
+
+        if (!recipeData) return res.json(null)
+
+        var recipes = recipeData.recipes
+
+        res.json({recipes: recipes})
+    }
+    catch(e){
+        if(typeof e === "string") result.reason = e
+        else {
+            console.log(e)
+        }
+    }
 })
 
 
@@ -208,5 +308,5 @@ app.get('/logout', (req, res) => {
 
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Your Recipes app listening at http://localhost:${port}`)
 })
