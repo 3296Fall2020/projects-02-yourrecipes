@@ -83,7 +83,7 @@ function idSearch(input) {
 
 	let requestString = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/";
 
-	requestString = requestString + id + "/information";
+	requestString = requestString + id + "/information?includeNutrition=true";
 
 	fetch(requestString, {
 	"method": "GET",
@@ -96,6 +96,7 @@ function idSearch(input) {
 		return response.json();
 	}).then(response => {
 		console.log(response);
+		displayInfo(response);
 	})
 	.catch(err => {
 		console.error(err);
@@ -132,9 +133,8 @@ function displayIngredient(response){
 	let output = `<table class="table table-hover">
 									<thead>
 											<th scope="col">Recipes</th>
-											<th scope="col">Ingredients</th>
-											<th scope="col">Missing Ingredients</th>
-											<th scope="col">Likes</th>
+											<th scope="col">Link</th>
+											<th scope="col">Save</th>
 									</thead>
 								 </table>
 								`;
@@ -156,9 +156,8 @@ function displayIngredient(response){
 									<tbody>
 											<tr>
 												<th scope="row">${item.title}</th>
-												<td>${ingredients}</td>
-												<td>${missedIngredients}</td>
-												<td>${item.likes}</td>
+												<td><a href="recipePage.html?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
+												<td><button type="button" class="btn btn-primary">Save</button></td>
 									</tbody>
 							 </table>
 			`;
@@ -172,9 +171,10 @@ function displayRecipe(response){
 	let output = `<table class="table table-hover">
 									<thead>
 											<th scope="col">Recipes</th>
-											<th scope="col">Ready in (mins)</th>
+											<th scope="col">Ready In (min)</th>
 											<th scope="col">Servings</th>
 											<th scope="col">Link</th>
+											<th scope="col">Save</th>
 									</thead>
 								 </table>
 								`;
@@ -187,7 +187,8 @@ function displayRecipe(response){
 												<th scope="row">${item.title}</th>
 												<td>${item.readyInMinutes}</td>
 												<td>${item.servings}</td>
-												<td><a href="${item.sourceUrl}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
+												<td><a href="recipePage.html?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
+												<td><button type="button" class="btn btn-primary">Save</button></td>
 									</tbody>
 							 </table>
 			`;
@@ -216,6 +217,47 @@ function displayQuestion(response){
 	document.getElementById("results").innerHTML = output;
 
 }
+
+function displayInfo(response) {
+	document.getElementById("recipe_img").src = response.image;
+    document.getElementById("servings").innerHTML = response.servings;
+	document.getElementById("ready").innerHTML = response.readyInMinutes;
+	
+	document.getElementById("type").innerHTML = response.dishTypes.join(', ');
+	document.getElementById("type").style.textTransform = "capitalize";
+	
+	document.getElementById("title").innerHTML = response.title;
+	document.getElementById("header").innerHTML = response.title;
+	document.getElementById("summary").innerHTML = response.summary;
+	document.getElementById("calories").innerHTML = response.nutrition.nutrients[0].amount;
+	document.getElementById("fat").innerHTML = response.nutrition.nutrients[1].amount;
+	document.getElementById("protein").innerHTML = response.nutrition.nutrients[8].amount;
+	document.getElementById("instructions").innerHTML = response.instructions;
+
+	if (response.dairyFree) {
+		document.getElementById("dairy").innerHTML = "Yes";
+	}
+	else {
+		document.getElementById("dairy").innerHTML = "No";
+	}
+
+	if (response.glutenFree) {
+		document.getElementById("gluten").innerHTML = "Yes";
+	}
+	else {
+		document.getElementById("gluten").innerHTML = "No";
+	}
+
+    if (response.vegan) {
+		document.getElementById("vegan").innerHTML = "Yes";
+	}
+	else {
+		document.getElementById("vegan").innerHTML = "No";
+	}
+
+    document.getElementById("url").href = response.sourceUrl;
+}
+
 var form = document.getElementById("searchForm");
 function handleForm(event){event.preventDefault();}
 form.addEventListener('submit', handleForm);
