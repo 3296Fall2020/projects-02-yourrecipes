@@ -232,7 +232,7 @@ app.post('/api/saverecipe', async (req, res) => {
         })
         if(foundDoc){
             // Prepare to save
-            foundDoc.recipes += (", " + req.body.recipe)
+            foundDoc.recipes += (", chicken parm")            
 
             //Save to database
             await new Promise((resolve, reject) => {
@@ -246,8 +246,9 @@ app.post('/api/saverecipe', async (req, res) => {
             //Prepare data to save
             var recDoc = new SRModel()
             recDoc.acc_id = id
-            recDoc.recipes = req.body.recipe
+            recDoc.recipes = "apple"
 
+            
             //Save to database
             await new Promise((resolve, reject) => {
                 recDoc.save(function(e){
