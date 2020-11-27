@@ -278,6 +278,7 @@ app.get('/recipedata', async (req,res)=>{
 
         var id = new ObjectId(req.session.uid)
 
+        // check for recipe data
         var recipeData = await new Promise((resolve, reject) => {
             SRModel.findOne({acc_id: id}, function(err, doc){
                 if(err) reject(err)
@@ -285,6 +286,7 @@ app.get('/recipedata', async (req,res)=>{
             })
         })
 
+        // recipe data does not exist
         if (!recipeData) return res.json(null)
 
         var recipes = recipeData.recipes
