@@ -156,7 +156,7 @@ function displayIngredient(response){
 									<tbody>
 											<tr>
 												<th scope="row">${item.title}</th>
-												<td><a href="recipePage.html?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
+												<td><a href="/recipe?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
 												<td><button type="button" class="btn btn-primary">Save</button></td>
 									</tbody>
 							 </table>
@@ -187,7 +187,7 @@ function displayRecipe(response){
 												<th scope="row">${item.title}</th>
 												<td>${item.readyInMinutes}</td>
 												<td>${item.servings}</td>
-												<td><a href="recipePage.html?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
+												<td><a href="/recipe?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
 												<td><button type="button" class="btn btn-primary">Save</button></td>
 									</tbody>
 							 </table>
@@ -222,10 +222,10 @@ function displayInfo(response) {
 	document.getElementById("recipe_img").src = response.image;
     document.getElementById("servings").innerHTML = response.servings;
 	document.getElementById("ready").innerHTML = response.readyInMinutes;
-	
+
 	document.getElementById("type").innerHTML = response.dishTypes.join(', ');
 	document.getElementById("type").style.textTransform = "capitalize";
-	
+
 	document.getElementById("title").innerHTML = response.title;
 	document.getElementById("header").innerHTML = response.title;
 	document.getElementById("summary").innerHTML = response.summary;

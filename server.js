@@ -195,7 +195,7 @@ app.get('/test', async (req,res)=>{
 })
 
 
-app.get('/render',(req,res)=>{
+app.get('/render', (req,res)=>{
     res.sendFile(__dirname +"/test.html")
 })
 
@@ -204,6 +204,11 @@ app.get('/render',(req,res)=>{
 app.get('/logout', (req, res) => {
     if(req.session.uid) req.session.destroy()
     res.redirect("/")
+})
+
+
+app.get('/recipe', (req,res)=>{
+    res.sendFile(__dirname +"/recipePage.html")
 })
 
 
