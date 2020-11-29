@@ -54,8 +54,19 @@ const Account = new Schema({
 })
 
 
+// Create saved recipes schema
+const SavedRecipes = new Schema({
+    acc_id: ObjectId,
+    recipes: String
+})
+
+
 // Create account model
 const AccModel = mongoose.model("Account", Account)
+
+
+// Create saved recipes model
+const SRModel = mongoose.model("SavedRecipes", SavedRecipes)
 
 
 // Send out signup page
