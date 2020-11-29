@@ -157,7 +157,12 @@ function displayIngredient(response){
 											<tr>
 												<th scope="row">${item.title}</th>
 												<td><a href="/recipe?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
-												<td><button type="button" class="btn btn-primary">Save</button></td>
+												<td>
+												<td>
+													<form action="/api/saverecipe" method="POST">
+														<button type="submit" name="save" onClick = "getRecipeID(response,i)">Save</button>
+													</form>
+												</td>	
 									</tbody>
 							 </table>
 			`;
@@ -177,21 +182,40 @@ function displayRecipe(response){
 								 </table>
 								`;
 
+
 	recipes.forEach(function(item, i){
-			output += `
+		console.log("test id:" +` ${item.id}`);	
+		output += `
 							<table class="table table-hover">
 									<tbody>
 											<tr>
 												<th scope="row">${item.title}</th>
-												<td><a href="/recipe?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
-												<td><button type="button" class="btn btn-primary">Save</button></td>
+												<td><a href="/recipe?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a>
+												
+												</td>
+												<td>
+													<form action="/api/saverecipe" method="POST">
+														<button type="submit" value="${item.id}" id="saveRecipe" name="save">Save</button>
+													</form>
+												</td>	
+												
 									</tbody>
 							 </table>
 			`;
 	});
+	
 	document.getElementById("results").innerHTML = output;
 
 }
+
+/*function getRecipeID(response, i){
+	let recipeList = response.results;
+
+	var recipeID = recipeList[i].id;	
+
+
+}*/	
+
 
 function displayQuestion(response){
 
@@ -253,6 +277,7 @@ function displayInfo(response) {
 
     document.getElementById("url").href = response.sourceUrl;
 }
+
 
 var form = document.getElementById("searchForm");
 function handleForm(event){event.preventDefault();}
