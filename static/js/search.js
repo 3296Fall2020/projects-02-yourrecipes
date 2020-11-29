@@ -5,7 +5,7 @@ function ingrediantSearch(input) {
 	var ingrediantString = ingrediantArr.map(ingrediant => ingrediant + '%2C');
 
 	let requestString = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/find" +
-	"ByIngredients?number=5&ranking=1&ingredients=";
+	"ByIngredients?number=100&rank=1&ingredients=";
 
 	requestString = requestString + ingrediantString;
 
@@ -30,7 +30,7 @@ function ingrediantSearch(input) {
 function recipeSearch(input) {
 	var recipeString = input;
 
-	let requestString = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?query=";
+	let requestString = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?number=100&rank=1&query=";
 
 	requestString = requestString + recipeString;
 
@@ -171,8 +171,6 @@ function displayRecipe(response){
 	let output = `<table class="table table-hover">
 									<thead>
 											<th scope="col">Recipes</th>
-											<th scope="col">Ready In (min)</th>
-											<th scope="col">Servings</th>
 											<th scope="col">Link</th>
 											<th scope="col">Save</th>
 									</thead>
@@ -185,8 +183,6 @@ function displayRecipe(response){
 									<tbody>
 											<tr>
 												<th scope="row">${item.title}</th>
-												<td>${item.readyInMinutes}</td>
-												<td>${item.servings}</td>
 												<td><a href="/recipe?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
 												<td><button type="button" class="btn btn-primary">Save</button></td>
 									</tbody>
