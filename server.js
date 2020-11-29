@@ -165,6 +165,12 @@ app.post('/api/login', async (req, res) => {
 })
 
 
+// Send out login page
+app.get('/test', (req, res) => {
+    res.sendFile(__dirname + '/test.html')
+})
+
+
 // process save recipe
 app.post('/api/saverecipe', async (req, res) => {
     var result = {success: false}
@@ -264,7 +270,7 @@ app.get('/search', async (req, res) => {
 })
 
 
-app.get('/test', async (req,res)=>{
+app.get('/userdata', async (req,res)=>{
     if(!req.session.uid) return res.json(null)
 
     var id = new ObjectId(req.session.uid)
