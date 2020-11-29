@@ -165,6 +165,94 @@ app.post('/api/login', async (req, res) => {
 })
 
 
+// process save recipe
+app.post('/api/saverecipe', async (req, res) => {
+    var result = {success: false}
+
+    try{
+        if(!req.session.uid) throw "Login or create an account to save recipes"
+
+        var id = new ObjectId(req.session.uid)
+
+        //Search for existing saved recipes doc
+        var foundDoc = await new Promise((resolve, reject) => {
+            SRModel.findOne({acc_id: id}, function(err, doc){
+                if(err) reject(err)
+                resolve(doc)
+            })
+        })
+        if(foundDoc){
+            // Prepare to save
+            foundDoc.recipes += ("," + req.body.recipe)
+
+            //Save to database
+            await new Promise((resolve, reject) => {
+                foundDoc.save(function(e){
+                    if(e) reject(e)
+                    resolve()
+                })
+            })
+        }
+        else{
+            //Prepare data to save
+            var recDoc = new SRModel()
+            recDoc.acc_id = id
+            recDoc.recipes = req.body.recipe
+
+            //Save to database
+            await new Promise((resolve, reject) => {
+                recDoc.save(function(e){
+                    if(e) reject(e)
+                    resolve()
+                })
+            })
+        }
+
+        result.success = true
+    }
+    catch(e){
+        if(typeof e === "string") result.reason = e
+        else {
+            result.reason = "Server error"
+            console.log(e)
+        }
+    }
+
+    res.json(result)
+})
+
+
+// send out recipe data
+app.get('/recipedata', async (req,res)=>{
+    try{
+        if(!req.session.uid) return res.json(null)
+
+        var id = new ObjectId(req.session.uid)
+
+        // check for recipe data
+        var recipeData = await new Promise((resolve, reject) => {
+            SRModel.findOne({acc_id: id}, function(err, doc){
+                if(err) reject(err)
+                resolve(doc)
+            })
+        })
+
+        // recipe data does not exist
+        if (!recipeData) return res.json(null)
+
+        var recipes = recipeData.recipes
+
+        res.json({recipes: recipes})
+    }
+    catch(e){
+        if(typeof e === "string") result.reason = e
+        else {
+            console.log(e)
+        }
+    }
+})
+
+
 app.get('/', (req, res) => {
     return res.redirect('/search')
 })
