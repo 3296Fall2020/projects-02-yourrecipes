@@ -333,10 +333,10 @@ function displayInfo(response) {
 }
 
 
-// var form = document.getElementById("searchForm");
-// function handleForm(event){event.preventDefault();}
-// form.addEventListener('submit', handleForm);
-// document.getElementById("searchForm").addEventListener("submit", search, true);
+var form = document.getElementById("searchForm");
+function handleForm(event){event.preventDefault();}
+form.addEventListener('submit', handleForm);
+document.getElementById("searchForm").addEventListener("submit", search, true);
 
 /*document.getElementById("btn").addEventListener("click", function(){ ingrediantSearch("chicken, tomato,potatoes"); });
 document.getElementById("btn2").addEventListener("click", function(){ recipeSearch("burger"); });
