@@ -1,0 +1,29 @@
+{
+  "name": "projects-02-yourrecipes",
+  "version": "1.0.0",
+  "description": "Team: Duy Nguyen, Joseph Pidgeon, Omran Farighi, Brandon Lokey",
+  "main": "search.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3296Fall2020/projects-02-yourrecipes.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/3296Fall2020/projects-02-yourrecipes/issues"
+  },
+  "homepage": "https://github.com/3296Fall2020/projects-02-yourrecipes#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^3.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.10.14"
+  }
+}
