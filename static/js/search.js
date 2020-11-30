@@ -144,7 +144,7 @@ function displaySaved(response){
 												<tr>
 													<th scope="row">${response.title}</th>
 													<td><a href="/recipe?recipe=${response.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
-													<td><button name="delete" onclick="deleteRecipe(${response.id})">Delete</button></td>
+													<td><button name="delete" onclick="deleteRecipe(${response.id})" class="btn btn-primary">Delete</button></td>
 												</tr>
 										</tbody>
 								 </table>
@@ -182,7 +182,7 @@ function saveRecipe(id) {
 	}
 
 	// post data to server
-	console.log("ID: " + recipeData.recipe)
+	console.log("Saved Recipe ID: " + recipeData.recipe)
 	$.post("/api/saverecipe", recipeData, function(res){
 		if(res.success === true){
 			alert("Success!")
@@ -244,7 +244,7 @@ function displayIngredient(response){
 											<tr>
 												<th scope="row">${item.title}</th>
 												<td><a href="/recipe?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
-												<td><button name="save" onclick="saveRecipe(${item.id})">Save</button></td>
+												<td><button name="save" onclick="saveRecipe(${item.id})" class="btn btn-primary">Save</button></td>
 											</tr>
 									</tbody>
 							 </table>
@@ -267,14 +267,15 @@ function displayRecipe(response){
 
 
 	recipes.forEach(function(item, i){
-		console.log("test id:" +` ${item.id}`);
+		//console.log("Display ID:" +` ${item.id}`);
 		output += `
 							<table class="table table-hover">
 									<tbody>
 											<tr>
 												<th scope="row">${item.title}</th>
 												<td><a href="/recipe?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
-												<td><button type="button" onclick="saveRecipe(${item.id})" name="save">Save</button><td>
+												<td><button name="save" onclick="saveRecipe(${item.id})" class="btn btn-primary">Save</button></td>
+											</tr>
 									</tbody>
 							 </table>
 			`;
@@ -283,15 +284,6 @@ function displayRecipe(response){
 	document.getElementById("results").innerHTML = output;
 
 }
-
-/*function getRecipeID(response, i){
-	let recipeList = response.results;
-
-	var recipeID = recipeList[i].id;
-
-
-}*/
-
 
 function displayQuestion(response){
 
@@ -359,8 +351,3 @@ var form = document.getElementById("searchForm");
 function handleForm(event){event.preventDefault();}
 form.addEventListener('submit', handleForm);
 document.getElementById("searchForm").addEventListener("submit", search, true);
-
-/*document.getElementById("btn").addEventListener("click", function(){ ingrediantSearch("chicken, tomato,potatoes"); });
-document.getElementById("btn2").addEventListener("click", function(){ recipeSearch("burger"); });
-document.getElementById("btn3").addEventListener("click", function(){ questionSearch("calories in burger"); });
-document.getElementById("btn4").addEventListener("click", function(){ idSearch(479101)});*/
