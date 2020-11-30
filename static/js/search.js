@@ -175,7 +175,8 @@ function displayIngredient(response){
 											<tr>
 												<th scope="row">${item.title}</th>
 												<td><a href="/recipe?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
-												<td><button type="submit" name="save" onclick="saveRecipe(${item.id})">Save</button></td>	
+												<td><button name="save" onclick="saveRecipe(${item.id})">Save</button></td>
+											</tr>	
 									</tbody>
 							 </table>
 			`;
