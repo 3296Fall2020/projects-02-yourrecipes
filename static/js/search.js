@@ -144,7 +144,7 @@ function displaySaved(response){
 												<tr>
 													<th scope="row">${response.title}</th>
 													<td><a href="/recipe?recipe=${response.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
-													<td><button name="delete" onclick="deleteRecipe(${response.id})">Delete</button></td>
+													<td><button name="delete" onclick="deleteRecipe(${response.id})" class="btn btn-primary">Delete</button></td>
 												</tr>
 										</tbody>
 								 </table>
