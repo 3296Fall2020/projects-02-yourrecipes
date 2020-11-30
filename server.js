@@ -34,7 +34,7 @@ app.use(session({
     resave: true,
     cookie: {
         domain: "localhost",
-        maxAge: 1000*60*60*24*365
+        maxAge: 1000*60*20
     }
 }))
 
@@ -177,16 +177,9 @@ app.post('/api/login', async (req, res) => {
 })
 
 
-// Send out login page
-app.get('/test', (req, res) => {
-    res.sendFile(__dirname + '/test.html')
-})
-
-
 // process save recipe
 app.post('/api/saverecipe', async (req, res) => {
     var result = {success: false}
-    console.log("Hello from POST" + req.body.recipe)
     try{
         if(!req.session.uid) throw "Login or create an account to save recipes"
 
@@ -200,9 +193,14 @@ app.post('/api/saverecipe', async (req, res) => {
             })
         })
         if(foundDoc){
-            console.log("Hello from POST" + req.body.recipe)
+            var recipesInDoc = foundDoc.recipes.split(',')
+
+            // check for already existing recipe saved
+            for(i = 0; i < recipesInDoc.length; i++){
+                if(recipesInDoc[i] == req.body.recipe) throw "Recipe is already saved!"
+            }
             // Prepare to save
-            foundDoc.recipes += (req.body.recipe + ",")
+            foundDoc.recipes += ("," + req.body.recipe)
 
             //Save to database
             await new Promise((resolve, reject) => {
@@ -213,7 +211,6 @@ app.post('/api/saverecipe', async (req, res) => {
             })
         }
         else{
-            console.log("Hello from POST" + req.body.recipe)
             //Prepare data to save
             var recDoc = new SRModel()
             recDoc.acc_id = id
@@ -241,6 +238,69 @@ app.post('/api/saverecipe', async (req, res) => {
     res.json(result)
 })
 
+
+// process delete recipe
+app.post('/api/deleterecipe', async (req, res) => {
+    var result = {success: false}
+    try{
+        if(!req.session.uid) throw "Login or create an account to delete recipes"
+
+        var id = new ObjectId(req.session.uid)
+
+        //Search for existing saved recipes doc
+        var foundDoc = await new Promise((resolve, reject) => {
+            SRModel.findOne({acc_id: id}, function(err, doc){
+                if(err) reject(err)
+                resolve(doc)
+            })
+        })
+        if(foundDoc){
+            var recipesInDoc = foundDoc.recipes.split(',')
+
+            var index = recipesInDoc.indexOf(req.body.recipe);
+
+            // delete recipe from array
+            if (index > -1) {
+               recipesInDoc.splice(index, 1);
+            }
+
+            if (recipesInDoc.length == 0){ // no recipes to save
+                // delete doc 
+                var deleteDoc = await new Promise((resolve, reject) => {
+                    SRModel.deleteOne({acc_id: id}, function(err, doc){
+                        if(err) reject(err)
+                        resolve(doc)
+                    })
+                })
+            } else {
+                // prepare to save
+                for(i = 0; i < recipesInDoc.length; i++){
+                    if(i==0) foundDoc.recipes = recipesInDoc[i]
+                    else foundDoc.recipes += ("," + recipesInDoc[i])
+                }
+
+                //Save to database
+                await new Promise((resolve, reject) => {
+                    foundDoc.save(function(e){
+                        if(e) reject(e)
+                        resolve()
+                    })
+                })
+            }
+        }
+
+        result.success = true
+    }
+    catch(e){
+        if(typeof e === "string") result.reason = e
+        else {
+            result.reason = "Server error"
+            console.log(e)
+        }
+    }
+
+    res.json(result)
+})
 
 // send out recipe data
 app.get('/recipedata', async (req,res)=>{
@@ -299,12 +359,7 @@ app.get('/userdata', async (req,res)=>{
     var username = accData.username
     var email = accData.email
 
-    res.json({username: username , message: email})
-})
-
-
-app.get('/render', (req,res)=>{
-    res.sendFile(__dirname +"/test.html")
+    res.json({username: username})
 })
 
 
@@ -319,9 +374,11 @@ app.get('/recipe', (req,res)=>{
     res.sendFile(__dirname +"/recipePage.html")
 })
 
-app.get('/savedRecipes', (req,res) => {
+
+app.get('/saved_recipes', (req,res) => {
      res.sendFile(__dirname + "/savedRecipes.html")
 })
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
