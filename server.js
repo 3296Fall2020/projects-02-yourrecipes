@@ -320,8 +320,9 @@ app.get('/recipe', (req,res)=>{
 })
 
 app.get('/savedRecipes', (req,res) => {
-    res.render('recipes', {recipes: recipes})
+     res.sendFile(__dirname + "/savedRecipes.html")
 })
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
