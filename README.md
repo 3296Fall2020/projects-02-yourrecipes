@@ -38,7 +38,8 @@ Tyler is looking to find a way to find new recipes that he can manage to cook ea
 
 ## Feature List
 
-- Automate calculating nutrition statistics for recipes based on the ingredients and servings.
-- Recipe organization by different categories (e.g. favorites, courses (breakfast, lunch, dinner, etc.), vegan, etc.).
-- Meal planning, users can pin a particular recipe to the date they want to cook it.
-- Generating recipes based on input of ingredients.
+- Search recipes based on ingredients.
+- Search for specific type of dish.
+- Access to guides, information, etc. of a dish.
+- Ability to save recipes to user's accounts.
+- Ask a question regarding nutritional information.
