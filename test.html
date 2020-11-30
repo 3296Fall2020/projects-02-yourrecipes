@@ -17,8 +17,13 @@
       </form>
     </div>
   </div>
+  <form action="/api/saverecipe" method="POST">
+    <button type="submit" name="save">Save</button></td>
+  </form>
+  <script src ="server.js">
+  </script>
   <script>
-      $(document).ready(function(){
+     $(document).ready(function(){
           $("#saverecipe").submit(function(e){
               e.preventDefault() // Prevents page refresh
 

@@ -3,6 +3,7 @@ var bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 var session = require('express-session')
+
 const MongoStore = require('connect-mongo')(session)
 
 
@@ -185,7 +186,7 @@ app.get('/test', (req, res) => {
 // process save recipe
 app.post('/api/saverecipe', async (req, res) => {
     var result = {success: false}
-
+    console.log("Hello from POST" + req.body.recipe)
     try{
         if(!req.session.uid) throw "Login or create an account to save recipes"
 
@@ -199,8 +200,9 @@ app.post('/api/saverecipe', async (req, res) => {
             })
         })
         if(foundDoc){
+            console.log("Hello from POST" + req.body.recipe)
             // Prepare to save
-            foundDoc.recipes += ("," + req.body.recipe)
+            foundDoc.recipes += (req.body.recipe + ",")
 
             //Save to database
             await new Promise((resolve, reject) => {
@@ -211,10 +213,11 @@ app.post('/api/saverecipe', async (req, res) => {
             })
         }
         else{
+            console.log("Hello from POST" + req.body.recipe)
             //Prepare data to save
             var recDoc = new SRModel()
             recDoc.acc_id = id
-            recDoc.recipes = req.body.recipe
+            recDoc.recipes = req.body.recipe;
 
             //Save to database
             await new Promise((resolve, reject) => {
@@ -316,7 +319,11 @@ app.get('/recipe', (req,res)=>{
     res.sendFile(__dirname +"/recipePage.html")
 })
 
-
+app.get('/savedRecipes', (req,res) => {
+    res.render('recipes', {recipes: recipes})
+})
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
+
+
