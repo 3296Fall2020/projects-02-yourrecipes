@@ -132,6 +132,7 @@ var output1 = `<table class="table table-hover">
 		<thead>
 				<th scope="col">Name</th>
 				<th scope="col">Link</th>
+				<th scope="col">Delete</th>
 		</thead>
 	 </table>
 	`;
@@ -143,6 +144,7 @@ function displaySaved(response){
 												<tr>
 													<th scope="row">${response.title}</th>
 													<td><a href="/recipe?recipe=${response.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
+													<td><button name="delete" onclick="deleteRecipe(${response.id})">Delete</button></td>
 												</tr>
 										</tbody>
 								 </table>
@@ -190,6 +192,26 @@ function saveRecipe(id) {
 			else alert("Unknown error")
 		}
 	})
+}
+
+function deleteRecipe(id) {
+	var recipeData = {
+		recipe: id
+	}
+
+	// post data to server
+	console.log("ID: " + recipeData.recipe)
+	$.post("/api/deleterecipe", recipeData, function(res){
+		if(res.success === true){
+			alert("Success!")
+		}
+		else {
+			if(res.reason) alert(res.reason)
+			else alert("Unknown error")
+		}
+	})
+
+	window.location.reload()
 }
 
 function displayIngredient(response){
