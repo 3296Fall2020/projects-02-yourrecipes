@@ -17,7 +17,6 @@
     <div class="wrapper">
       <i class="fas fa-code"></i>
       <h3>Loading...</h3>
-
     </div>
   </div>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -40,7 +39,7 @@
             Menu
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Saved Recipes</a>
+            <a class="dropdown-item" href="/saved_recipes">Saved Recipes</a>
             <a class="dropdown-item" href="#">Account Settings</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/logout">Logout</a>
@@ -97,27 +96,5 @@
   </script>
   <script src="./static/js/search.js"></script>
   <script src="./static/js/loader.js"></script>
- <!-- <script>
-    $(document).ready(function(){
-         $("#saveRecipe").submit(function(e){
-             e.preventDefault() // Prevents page refresh
-              console.log($("#saveRecipe").val());
-             var recipeData = {
-                 recipe: $("#saveRecipe").val()
-             }
-
-             // post data to server
-             $.post("/api/saverecipe", recipeData, function(res){
-                 if(res.success === true){
-                     alert("Success!")
-                 }
-                 else {
-                     if(res.reason) alert(res.reason)
-                     else alert("Unknown error")
-                 }
-             })
-         })
-     })
- </script> -->
 </body>
 </html>
