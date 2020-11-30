@@ -103,6 +103,53 @@ function idSearch(input) {
 	});
 }
 
+function idSaved(input) {
+	var id = input;
+
+	let requestString = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/";
+
+	requestString = requestString + id + "/information?includeNutrition=true";
+
+	fetch(requestString, {
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-key": "1c21a777d3msh628208c1292df8fp188f2djsn6a46b7c57061",
+		"x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
+	}
+	})
+	.then(response => {
+		return response.json();
+	}).then(response => {
+		console.log(response);
+		displaySaved(response);
+	})
+	.catch(err => {
+		console.error(err);
+	});
+}
+
+var output1 = `<table class="table table-hover">
+		<thead>
+				<th scope="col">Name</th>
+				<th scope="col">Link</th>
+		</thead>
+	 </table>
+	`;
+function displaySaved(response){
+
+		output1 += `
+								<table class="table table-hover">
+										<tbody>
+												<tr>
+													<th scope="row">${response.title}</th>
+													<td><a href="/recipe?recipe=${response.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
+												</tr>
+										</tbody>
+								 </table>
+				`;
+
+		document.getElementById('results').innerHTML = output1;
+}
 function search(){
 	var searchString = document.getElementById("searchInput").value.toString();
 	let value = "";
@@ -176,7 +223,7 @@ function displayIngredient(response){
 												<th scope="row">${item.title}</th>
 												<td><a href="/recipe?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
 												<td><button name="save" onclick="saveRecipe(${item.id})">Save</button></td>
-											</tr>	
+											</tr>
 									</tbody>
 							 </table>
 			`;
@@ -198,7 +245,7 @@ function displayRecipe(response){
 
 
 	recipes.forEach(function(item, i){
-		console.log("test id:" +` ${item.id}`);	
+		console.log("test id:" +` ${item.id}`);
 		output += `
 							<table class="table table-hover">
 									<tbody>
@@ -210,7 +257,7 @@ function displayRecipe(response){
 							 </table>
 			`;
 	});
-	
+
 	document.getElementById("results").innerHTML = output;
 
 }
@@ -218,10 +265,10 @@ function displayRecipe(response){
 /*function getRecipeID(response, i){
 	let recipeList = response.results;
 
-	var recipeID = recipeList[i].id;	
+	var recipeID = recipeList[i].id;
 
 
-}*/	
+}*/
 
 
 function displayQuestion(response){
@@ -286,10 +333,10 @@ function displayInfo(response) {
 }
 
 
-var form = document.getElementById("searchForm");
-function handleForm(event){event.preventDefault();}
-form.addEventListener('submit', handleForm);
-document.getElementById("searchForm").addEventListener("submit", search, true);
+// var form = document.getElementById("searchForm");
+// function handleForm(event){event.preventDefault();}
+// form.addEventListener('submit', handleForm);
+// document.getElementById("searchForm").addEventListener("submit", search, true);
 
 /*document.getElementById("btn").addEventListener("click", function(){ ingrediantSearch("chicken, tomato,potatoes"); });
 document.getElementById("btn2").addEventListener("click", function(){ recipeSearch("burger"); });
