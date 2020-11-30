@@ -127,6 +127,24 @@ function search(){
 	}
 }
 
+function saveRecipe(id) {
+	var recipeData = {
+		recipe: id
+	}
+
+	// post data to server
+	console.log("ID: " + recipeData.recipe)
+	$.post("/api/saverecipe", recipeData, function(res){
+		if(res.success === true){
+			alert("Success!")
+		}
+		else {
+			if(res.reason) alert(res.reason)
+			else alert("Unknown error")
+		}
+	})
+}
+
 function displayIngredient(response){
 	let ingredients = [];
 	let missedIngredients = [];
@@ -157,7 +175,7 @@ function displayIngredient(response){
 											<tr>
 												<th scope="row">${item.title}</th>
 												<td><a href="/recipe?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
-												<td><button type="button" class="btn btn-primary">Save</button></td>
+												<td><button type="submit" name="save" onclick="saveRecipe(${item.id})">Save</button></td>	
 									</tbody>
 							 </table>
 			`;
@@ -177,21 +195,33 @@ function displayRecipe(response){
 								 </table>
 								`;
 
+
 	recipes.forEach(function(item, i){
-			output += `
+		console.log("test id:" +` ${item.id}`);	
+		output += `
 							<table class="table table-hover">
 									<tbody>
 											<tr>
 												<th scope="row">${item.title}</th>
 												<td><a href="/recipe?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
-												<td><button type="button" class="btn btn-primary">Save</button></td>
+												<td><button type="button" onclick="saveRecipe(${item.id})" name="save">Save</button><td>
 									</tbody>
 							 </table>
 			`;
 	});
+	
 	document.getElementById("results").innerHTML = output;
 
 }
+
+/*function getRecipeID(response, i){
+	let recipeList = response.results;
+
+	var recipeID = recipeList[i].id;	
+
+
+}*/	
+
 
 function displayQuestion(response){
 
@@ -253,6 +283,7 @@ function displayInfo(response) {
 
     document.getElementById("url").href = response.sourceUrl;
 }
+
 
 var form = document.getElementById("searchForm");
 function handleForm(event){event.preventDefault();}
