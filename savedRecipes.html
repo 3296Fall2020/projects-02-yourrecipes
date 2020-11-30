@@ -38,9 +38,54 @@
             <header>
                 <u><h1 style="text-align:center;">Saved Recipes</h1></u>
             </header>
-            <table class="table table-hover" style="text-align:center;">
-                <tr><td><b>Name</b></td><td><b>View Recipe</b></td></tr>
-            </table>
+            <div class="container">
+              <div id="results"></div>
+            </div>
+            <script src="./static/js/search.js"></script>
+            <script src="./static/js/loader.js"></script>
+            <script>
+              let output = `<table class="table table-hover">
+									<thead>
+											<th scope="col">Name</th>
+											<th scope="col">Link</th>
+									</thead>
+								 </table>
+                `;
+                
+              let url1="http://localhost:3000/recipeData";
+                fetch(url1).then(response => response.json())
+                .then( (result) => {
+                    console.log('success:', result)
+                    if (result!=null){
+                      var idArr = result.recipes.split(',')
+                      console.log(idArr)
+                      for (let i = 0; i < idArr.length-1; i++) {
+                        var res = idSearch(idArr[i]);
+                        console.log(res);
+                        var name = res.title;
+                        console.log(name);
+                        output += `
+							<table class="table table-hover">
+									<tbody>
+											<tr>
+												<th scope="row">${name}</th>
+												<td><a href="/recipe?recipe=${idArr[i]}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
+											</tr>	
+									</tbody>
+							 </table>
+			`;
+                      }
+
+                    }
+                    else {
+                    }
+                })
+                .catch(error => console.log('error:', error));
+
+                document.getElementById('result').innerHTML = output;
+            </script>
+
+
             <script>
                 let url="http://localhost:3000/test";
                 fetch(url).then(response => response.json())
