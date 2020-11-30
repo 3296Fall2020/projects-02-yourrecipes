@@ -97,27 +97,5 @@
   </script>
   <script src="./static/js/search.js"></script>
   <script src="./static/js/loader.js"></script>
- <!-- <script>
-    $(document).ready(function(){
-         $("#saveRecipe").submit(function(e){
-             e.preventDefault() // Prevents page refresh
-              console.log($("#saveRecipe").val());
-             var recipeData = {
-                 recipe: $("#saveRecipe").val()
-             }
-
-             // post data to server
-             $.post("/api/saverecipe", recipeData, function(res){
-                 if(res.success === true){
-                     alert("Success!")
-                 }
-                 else {
-                     if(res.reason) alert(res.reason)
-                     else alert("Unknown error")
-                 }
-             })
-         })
-     })
- </script> -->
 </body>
 </html>
