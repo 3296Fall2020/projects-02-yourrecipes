@@ -97,11 +97,11 @@
   </script>
   <script src="./static/js/search.js"></script>
   <script src="./static/js/loader.js"></script>
- <script>
+ <!-- <script>
     $(document).ready(function(){
          $("#saveRecipe").submit(function(e){
              e.preventDefault() // Prevents page refresh
-
+              console.log($("#saveRecipe").val());
              var recipeData = {
                  recipe: $("#saveRecipe").val()
              }

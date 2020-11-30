@@ -127,6 +127,24 @@ function search(){
 	}
 }
 
+function saveRecipe(id) {
+	var recipeData = {
+		recipe: id
+	}
+
+	// post data to server
+	console.log("ID: " + recipeData.recipe)
+	$.post("/api/saverecipe", recipeData, function(res){
+		if(res.success === true){
+			alert("Success!")
+		}
+		else {
+			if(res.reason) alert(res.reason)
+			else alert("Unknown error")
+		}
+	})
+}
+
 function displayIngredient(response){
 	let ingredients = [];
 	let missedIngredients = [];
@@ -157,12 +175,7 @@ function displayIngredient(response){
 											<tr>
 												<th scope="row">${item.title}</th>
 												<td><a href="/recipe?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
-												<td>
-												<td>
-													<form action="/api/saverecipe" method="POST">
-														<button type="submit" name="save" onClick = "getRecipeID(response,i)">Save</button>
-													</form>
-												</td>	
+												<td><button type="submit" name="save" onclick="saveRecipe(${item.id})">Save</button></td>	
 									</tbody>
 							 </table>
 			`;
@@ -190,15 +203,8 @@ function displayRecipe(response){
 									<tbody>
 											<tr>
 												<th scope="row">${item.title}</th>
-												<td><a href="/recipe?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a>
-												
-												</td>
-												<td>
-													<form action="/api/saverecipe" method="POST">
-														<button type="submit" value="${item.id}" id="saveRecipe" name="save">Save</button>
-													</form>
-												</td>	
-												
+												<td><a href="/recipe?recipe=${item.id}" target="_blank"><button type="button" class="btn btn-primary">View Recipe</button></a></td>
+												<td><button type="button" onclick="saveRecipe(${item.id})" name="save">Save</button><td>
 									</tbody>
 							 </table>
 			`;
