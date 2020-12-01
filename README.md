@@ -96,3 +96,33 @@ Manual testing
 - When logged in, clicking "Saved Recipes" in the drop down menu will redirect to "saved_recipes" page
 ![image](https://user-images.githubusercontent.com/59928547/100691179-21ab2380-3356-11eb-9494-5be777947c9d.png)
 ![image](https://user-images.githubusercontent.com/59928547/100691210-325b9980-3356-11eb-80a2-6b16fb2b13bb.png)
+
+- Searching by ingredient will display a list of recipes based on the search query. By searching "chicken," the search results will display recipes that include chicken.
+![image](./images/IngredientSearchBefore.png)
+![image](./images/IngredientSearchAfter.png)
+
+- A user can also search for recipes using multiple ingredients. Searching for "chicken, tomato, and rice" will display recipes that include all three ingredients.
+![image](./images/MultipleIngredientSearch.png)
+
+- Searching by recipe will display different variations of the recipe search query. By searching for "chicken pot pie," the results will display chicken pot pie recipes.
+![image](./images/RecipeSearchBefore.png)
+![image](./images/RecipeSearchAfter.png)
+
+- Searching by question allows the user to ask for nutritional information. By searching "calories in chicken," the result displays the answer to the query.
+![image](./images/QuestionBefore.png)
+![image](./images/QuestionAfter.png)
+
+- Users can save recipes that they like or would like to try later. By clicking "Save" on a specific recipe, the server adds the recipe's ID to the user's corresponding document in the database. Saving "chicken fajitas sandwiches" passes the recipe ID (559886) to the database, and appends it to the corresponding user's JSON document.
+![image](./images/SaveRecipe.png)
+![image](./images/SaveMongo.png)
+
+- Users can view the recipes they have saved in the "Saved Recipes" page. Using the database document that corresponds with the user and any saved recipe IDs, the page displays the name of the recipes as well as a link to view the recipe page and an option to delete the recipe from the list of saved recipes.
+![image](./images/SavedRecipesPage.png)
+![image](./images/SavedRecipesPageMongo.png)
+
+- Users can delete the recipes they no longer wish to keep saved by clicking the "Delete" button found on the "Saved Recipes" page. This has the server communicate with the database to remove the desired recipe ID from the corresponding user's document. Deleting the "25 Chickens Recipe" removes its corresponding recipe ID from the database.
+![image](./images/DeleteRecipe.png)
+![image](./images/DeleteRecipeMongo.png)
+
+- Deleting refreshes the "Saved Recipes" without the deleted recipe.
+![image](./images/SavedRecipesPageAfterDelete.png)
