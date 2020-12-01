@@ -42,6 +42,8 @@ Tyler is looking to find a way to find new recipes that he can manage to cook ea
 - Search for specific type of dish.
 - Access to guides, information, etc. of a dish.
 - Ability to save recipes to user's accounts.
+- Ability to create an account to keep track of saved recipes.
+- Ability to login to created accounts.
 - Ask a question regarding nutritional information.
 
 ### Testing
@@ -94,5 +96,3 @@ Manual testing
 - When logged in, clicking "Saved Recipes" in the drop down menu will redirect to "saved_recipes" page
 ![image](https://user-images.githubusercontent.com/59928547/100691179-21ab2380-3356-11eb-9494-5be777947c9d.png)
 ![image](https://user-images.githubusercontent.com/59928547/100691210-325b9980-3356-11eb-80a2-6b16fb2b13bb.png)
-
-
