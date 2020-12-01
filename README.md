@@ -112,10 +112,6 @@ Manual testing
 ![image](./images/QuestionBefore.png)
 ![image](./images/QuestionAfter.png)
 
-- Users can view the details of the recipes by selecting the "View Recipe" button. This will open a new tab that display all the details of the recipe including a description of the dish, nutritional information, and cooking instructions.
-![image](./images/ViewBefore.png)
-![image](./images/ViewAfter.png)
-
 - Users can save recipes that they like or would like to try later. By clicking "Save" on a specific recipe, the server adds the recipe's ID to the user's corresponding document in the database. Saving "chicken fajitas sandwiches" passes the recipe ID (559886) to the database, and appends it to the corresponding user's JSON document.
 ![image](./images/SaveRecipe.png)
 ![image](./images/SaveMongo.png)
