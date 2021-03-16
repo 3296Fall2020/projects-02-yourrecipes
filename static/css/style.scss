@@ -1,0 +1,357 @@
+@import "format";
+@import "spinner";
+@import "effects";
+//global settings
+html{
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+}
+
+
+span{
+  color: $span;
+ }
+.navbar-dark {
+  letter-spacing: 0.2rem;
+  margin-bottom:2rem;
+  .navbar-brand {
+    color: #f9f9f9;
+    &:hover{
+      color:#f9f9f9;
+    }
+  }
+  .navbar-nav {
+    .nav-link{
+      color:$text;
+      &:hover{
+        color: $span;
+      }
+    }
+    .show > .nav-link,
+    .active > .nav-link,
+    .nav-link.show,
+    .nav-link.active {
+      color: $span;
+      transition: 0.5s;
+    }
+  }
+}
+
+////styling the face of the website
+#intro{
+
+  background-image: url('../img/sky.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  height:100vh;
+  text-align: center;
+  i {
+    bottom: 2rem;
+    position: absolute;
+    color: #fff;
+    font-size:3rem;
+    transform: translateX(-50%);
+    &:hover {
+      color: $span;
+      transition: 1s;
+    }
+  }
+
+  .img {
+    .text {
+      width: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      position: absolute;
+      text-align: center;
+
+      //seting the delay of each h1
+      .animate1 {
+        animation-delay: 0s;
+      }
+
+      .animate2 {
+        animation-delay: 500ms;
+      }
+
+      h1 {
+        letter-spacing: 0.4rem;
+        line-height: 1.3em;
+        opacity: 0;
+        animation: reveal 2s normal forwards;
+        color: #fff;
+        text-shadow: $shadow;
+        margin-bottom: 1.2rem;
+      }
+
+    }
+
+  }
+}
+
+
+//styling jumbotron
+.jumbotron{
+  text-align: center;
+  padding-bottom: 15rem;
+  background:#f9f9f9;
+  border-radius: 0;
+  h1{
+    margin-bottom: 4rem;
+  }
+  img{
+    border-radius: 50%;
+    margin-bottom: 4rem;
+  }
+  p{
+    max-width: 700px;
+    margin: 0 auto 4rem auto;
+
+  }
+
+}
+
+//styling skill section
+.skills{
+  background:$dark-green;
+  margin-top: -8rem;
+  .container {
+    border-radius: 1rem;
+    background: #f9f9f9;
+    border: $border;
+    top:-6rem;
+    text-align: center;
+    position: relative;
+    box-shadow: $shadow;
+    .col-lg-6 {
+      padding:2rem 4rem;
+
+      &:first-child {
+        border-right: $border;
+      }
+      i{
+        font-size: 4rem;
+        color: $span;
+        margin: 2rem;
+      }
+      p{
+        margin-bottom: 3rem;
+      }
+      h3{
+        margin-bottom: 2rem;
+      }
+      h4{
+        color: $span;
+        margin-bottom:1rem;
+        display:block;
+        word-wrap: break-word;
+      }
+      ul{
+        padding-left: 0;
+        list-style: none;
+        li{
+          margin-bottom:0.4rem;
+        }
+      }
+    }
+    .col-md-12{
+      padding: 1rem 2rem;
+      border-right:none;
+
+    }
+  }
+}
+
+//styling the project section
+.projects{
+  //background:$gray;
+  //padding: 8rem 0;
+  h2{
+    padding-top: 8rem;
+  }
+  .container {
+    padding-top: 8rem;
+
+    .row {
+      margin: 2rem auto 2rem auto;
+      max-width: 900px;
+
+      .col-lg-4 {
+        padding: 0;
+      }
+      .col-lg-8{
+        padding-left:10rem;
+      }
+      .col-sm-6{
+        padding: 0 1rem 1rem;
+      }
+      .right {
+        float: right;
+      }
+
+      .img-thumbnail {
+        padding: 0;
+        border: 1px solid #000;
+        width: 20rem;
+        height:11rem;
+      }
+    }
+  }
+}
+
+//styling contact section
+.contact{
+  background: #232323;
+  .container{
+    text-align: center;
+    text-shadow: $shadow;
+    i{
+      color:$text;
+      margin-bottom:1rem;
+      letter-spacing: 1rem;
+      font-size:2rem;
+      &:hover{
+        color:$span;
+      }
+    }
+    h2, h3{
+      text-align: center;
+      color: $text;
+    }
+    h2{
+      padding-top:4rem;
+    }
+    h3{
+      padding-bottom:2rem;
+    }
+    form{
+      width: 60%;
+      margin: auto;
+      text-align: left;
+      .info{
+        margin-bottom: 3rem;
+        .btn-secondary{
+          background:$text;
+          max-width: 8em;
+          &:hover{
+            background: $span;
+          }
+        }
+      }
+      .form-group{
+        input{
+          background: $text;
+          color:#000;
+
+        }
+        .form-control{
+          border:none;
+        }
+        textarea{
+          background:$text;
+          border-radius: 0.3rem;
+          padding:0.8rem;
+        }
+      }
+    }
+  }
+}
+
+//footer of the page
+footer{
+  background:#000;
+  height:3rem;
+  text-align: center;
+  padding:0.7rem;
+  a{
+    color: $span;
+    text-decoration: none;
+    &:visited{
+      color: $span;
+    }
+    &:hover{
+      color: $span;
+      text-decoration: none;
+    }
+  }
+}
+@media (max-width: 1000px){
+  #intro{
+    i{
+      opacity: 0;
+      z-index: -1;
+    }
+  }
+  .projects{
+    .container{
+      .row{
+        .col-sm-12{
+          padding:0 2rem 1rem 2rem;
+          img .img-thumbnail{
+            margin-bottom:1rem;
+          }
+        }
+      }
+    }
+  }
+
+  .skills{
+    .container{
+      .col-lg-6:first-child{
+        border-right: none;
+      }
+      .col-md-12{
+        border-bottom:$border;
+      }
+    }
+  }
+}
+
+//setting for devices under 700px width
+@media (max-width:600px){
+  html{
+    font-size:14px;
+  }
+  #intro{
+    background-attachment: scroll;
+    .img{
+      .text{
+        h1 {
+          margin-bottom: 3rem;
+        }
+      }
+    }
+  }
+  .jumbotron{
+    img{
+      width:13rem;
+    }
+  }
+  .skills{
+    .container{
+      max-width:75%;
+    }
+  }
+
+  .projects{
+    .container{
+      .row{
+        .col-sm-6{
+          text-align: center;
+        }
+      }
+    }
+  }
+  .contact{
+    .container{
+      form {
+        width: 80%;
+      }
+    }
+  }
+
+}
+

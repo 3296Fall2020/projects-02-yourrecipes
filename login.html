@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Your Recipes Login</title>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./static/css/signin.css?v=1.7">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
+  <link rel="icon" href="favicon.ico">
+</head>
+<body id="body">
+  <div class="spinner" id="spinner">
+    <div class="wrapper">
+      <i class="fas fa-code"></i>
+      <h3>Loading...</h3>
+    </div>
+  </div>
+
+  <div class="signBody">
+    <div class="container">
+      <h1>Login</h1>
+      <form id="login" autocomplete="off">
+        <div class="inputBox">
+          <input type="text" id="username" name="" required>
+          <label>Username</label>
+        </div>
+        <div class="inputBox">
+          <input type="password" id="password" name="" required>
+          <label>Password</label>
+        </div>
+        <input type="submit" name="" value="Login">
+      </form>
+      <br>
+      <p style="color:white;font-size:25px"><b>Don't have an account?</b></p>
+      <a href="/signup" style="color:white;font-size:18px">Sign up here</a>
+      <a href="/"style="color:white;font-size:18px">Return to Home</a>
+    </div>
+  </div>
+  <script>
+      $(document).ready(function(){
+          $("#login").submit(function(e){
+              e.preventDefault() //Prevents page refresh
+
+              var loginData = {
+                  username: $("#username").val(),
+                  password: $("#password").val(),
+              }
+
+              $.post("/api/login", loginData, function(res){
+                  if(res.success === true){
+                      alert("Success!")
+                      // Simulate an HTTP redirect:
+                      window.location.replace("/")
+                  }
+                  else {
+                      if(res.reason) alert(res.reason)
+                      else alert("Unknown error")
+                  }
+              })
+          })
+      })
+  </script>
+  <script src="./static/js/loader.js"></script>
+</body>
+</html>
